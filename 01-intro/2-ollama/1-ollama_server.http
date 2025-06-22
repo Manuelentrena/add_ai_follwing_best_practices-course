@@ -1,0 +1,29 @@
+### Ollama status
+GET http://localhost:11434/
+
+### List all installed models
+GET http://localhost:11434/api/tags
+
+### Download a model
+POST http://localhost:11434/api/pull
+
+{
+	"model": "gemma:latest"
+}
+
+### Chat with a model
+POST http://localhost:11434/api/generate
+
+{
+	"model": "gemma:latest",
+	"prompt": "Qué es Codely? (en menos de 15 palabras)",
+	"stream": false
+}
+
+### Chat with a model in streaming
+POST http://localhost:11434/api/generate
+
+{
+	"model": "gemma:latest",
+	"prompt": "Qué es Codely? (en menos de 15 palabras)"
+}
