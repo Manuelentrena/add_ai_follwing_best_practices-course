@@ -1,0 +1,51 @@
+### 1. Verificar estado del servidor
+GET http://localhost:11434/
+
+### 2. Listar modelos instalados
+GET http://localhost:11434/api/tags
+
+### 3. Descargar modelo específico
+POST http://localhost:11434/api/pull
+Content-Type: application/json
+
+{
+  "model": "llama3:8b-instruct-q4_0"
+}
+
+### 4. Generar respuesta (modo estándar)
+POST http://localhost:11434/api/generate
+Content-Type: application/json
+
+{
+  "model": "llama3:8b-instruct-q4_0",
+  "prompt": "Qué es Codely? (en menos de 15 palabras)",
+  "stream": false,
+  "options": {
+    "temperature": 0.7,
+    "num_ctx": 2048
+  }
+}
+
+### 5. Generar respuesta (streaming)
+POST http://localhost:11434/api/generate
+Content-Type: application/json
+
+{
+  "model": "llama3:8b-instruct-q4_0",
+  "prompt": "Explica la teoría de la relatividad en 2 líneas",
+  "stream": true
+}
+
+### 6. Chat contextual (para conversaciones)
+POST http://localhost:11434/api/chat
+Content-Type: application/json
+
+{
+  "model": "llama3:8b-instruct-q4_0",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hola, ¿puedes ayudarme con física cuántica?"
+    }
+  ]
+}
