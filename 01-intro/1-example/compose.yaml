@@ -1,0 +1,19 @@
+services:
+  ollama-llama3:
+    image: ollama/ollama:latest
+    container_name: ollama-llama3
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+      - ./init.sh:/app/init.sh
+    environment:
+      - OLLAMA_NO_CUDA=1
+    deploy:
+      resources:
+        limits:
+          memory: 2500M
+    entrypoint: ["/bin/sh", "/app/init.sh"]
+
+volumes:
+  ollama_data:
