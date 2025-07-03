@@ -1,6 +1,5 @@
 export class EnumMother {
 	static randomFrom<T>(anEnum: T): T[keyof T] {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		const enumValues = Object.keys(anEnum).filter((key) =>
 			isNaN(Number(key)),

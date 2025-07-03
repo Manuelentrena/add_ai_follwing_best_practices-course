@@ -4,17 +4,20 @@ import { NextResponse } from "next/server";
 import { OllamaMistralCoursesSuggestionsRepository } from "../../../../../contexts/mooc/course_suggestions/infrastructure/OllamaMistralCoursesSuggestionsRepository";
 import { UserFinder } from "../../../../../contexts/mooc/users/application/find/UserFinder";
 import { MySqlUserRepository } from "../../../../../contexts/mooc/users/infrastructure/MySqlUserRepository";
-import { MariaDBConnection } from "../../../../../contexts/shared/infrastructure/MariaDBConnection";
+import { PostgresConnection } from "../../../../../contexts/shared/infrastructure/PostgresConnection";
 
 const finder = new UserFinder(
-	new MySqlUserRepository(new MariaDBConnection()),
-	new OllamaMistralCoursesSuggestionsRepository(),
+  new MySqlUserRepository(new PostgresConnection()),
+  new OllamaMistralCoursesSuggestionsRepository()
 );
 
-export async function GET(_request: Request, context: { params: Params }): Promise<NextResponse> {
-	const userId = context.params.user_id as string;
+export async function GET(
+  _request: Request,
+  context: { params: Params }
+): Promise<NextResponse> {
+  const userId = context.params.user_id as string;
 
-	const users = await finder.find(userId);
+  const users = await finder.find(userId);
 
-	return NextResponse.json(users.toPrimitives());
+  return NextResponse.json(users.toPrimitives());
 }

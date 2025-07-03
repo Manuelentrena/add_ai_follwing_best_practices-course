@@ -8,7 +8,7 @@ export class UserFinder {
 	constructor(
 		private readonly repository: UserRepository,
 		private readonly courseSuggestionsRepository: CourseSuggestionsRepository,
-	) {}
+	) { }
 
 	async find(id: string): Promise<User> {
 		const user = await this.repository.search(new UserId(id));
@@ -22,7 +22,7 @@ export class UserFinder {
 				user.finishedCourses,
 			);
 
-			user.updateRecommendedCourses(recommendations);
+			user.updateRecommendedCourses(recommendations || []);
 		}
 
 		return user;
