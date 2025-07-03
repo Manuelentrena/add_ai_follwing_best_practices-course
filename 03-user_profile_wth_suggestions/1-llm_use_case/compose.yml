@@ -1,18 +1,17 @@
 services:
-  03_1_ia_good_practices_mariadb:
-    image: mariadb:11
+  postgres:
+    image: postgres:14
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: adminpassword
-      MYSQL_DATABASE: mooc
-      MYSQL_USER: codely
-      MYSQL_PASSWORD: c0d3ly7v
+      POSTGRES_DB: mooc
+      POSTGRES_USER: codely
+      POSTGRES_PASSWORD: c0d3ly7v
       TZ: UTC
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - db_data:/var/lib/mysql
+      - pg_data:/var/lib/postgresql/data
       - ./databases/codely.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
-  db_data:
+  pg_data:
