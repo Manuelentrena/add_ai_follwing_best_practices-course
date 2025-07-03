@@ -1,2 +1,2 @@
 ### GET a user
-GET http://localhost:3000/api/mooc/users/5353ef23-e982-4acc-928e-c7cdad92152a
+GET http://localhost:3000/api/mooc/user_course_suggestions/b1a2c3d4-e5f6-7890-abcd-1234567890ef
