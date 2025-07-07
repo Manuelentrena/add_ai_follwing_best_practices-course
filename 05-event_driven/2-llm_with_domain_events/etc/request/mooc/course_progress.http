@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
 	"courseId": "{{$random.uuid}}",
-	"userId": "5353ef23-e982-4acc-928e-c7cdad92152a",
+	"userId": "3f9e1d42-7d28-4b62-9d3a-2c6f1e4a0bde",
 	"courseName": "DDD en PHP"
 }
 
