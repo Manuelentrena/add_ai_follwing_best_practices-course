@@ -1,5 +1,9 @@
 import { PostgresConnection } from "../../../shared/infrastructure/PostgresConnection";
 import { UserId } from "../../users/domain/UserId";
+import {
+  CourseSuggestion,
+  CourseSuggestionPrimitives,
+} from "../domain/CourseSuggestion";
 import { UserCourseSuggestions } from "../domain/UserCourseSuggestions";
 import { UserCourseSuggestionsRepository } from "../domain/UserCourseSuggestionsRepository";
 
@@ -51,11 +55,16 @@ export class PostgresUserCourseSuggestionsRepository
     }
 
     const completedCourses = JSON.parse(result.completed_courses) as string[];
+    const suggestions = JSON.parse(
+      result.suggested_courses
+    ) as CourseSuggestionPrimitives[];
 
     return UserCourseSuggestions.fromPrimitives({
       userId: result.user_id,
       completedCourses,
-      suggestions: result.suggested_courses,
+      suggestions: suggestions.map((primitives) =>
+        CourseSuggestion.fromPrimitives(primitives)
+      ),
     });
   }
 }
