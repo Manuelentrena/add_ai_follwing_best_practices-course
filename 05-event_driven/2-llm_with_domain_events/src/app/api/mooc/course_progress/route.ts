@@ -11,6 +11,7 @@ import { UserFinder } from "../../../../contexts/mooc/users/domain/UserFinder";
 import { MySqlUserRepository } from "../../../../contexts/mooc/users/infrastructure/MySqlUserRepository";
 import { InMemoryEventBus } from "../../../../contexts/shared/infrastructure/domain_event/InMemoryEventBus";
 import { PostgresConnection } from "../../../../contexts/shared/infrastructure/PostgresConnection";
+import { OllamaMistralCourseSuggestionsWithReasonGenerator } from "../../../../contexts/mooc/user_course_suggestions/infrastructure/OllamaMistralCourseSuggestionsWithReasonGenerator";
 
 const postgresDBConnection = new PostgresConnection();
 
@@ -22,7 +23,7 @@ const completer = new UserCourseProgressCompleter(
     new GenerateUserCourseSuggestionsOnUserCourseProgressCompleted(
       new UserCourseSuggestionsGenerator(
         new PostgresUserCourseSuggestionsRepository(postgresDBConnection),
-        new OllamaMistralCourseSuggestionsGenerator(),
+        new OllamaMistralCourseSuggestionsWithReasonGenerator(),
         new InMemoryEventBus([
           new UpdateUserCourseSuggestionsOnUserCourseSuggestionsGenerated(
             new UserCourseSuggestionsUpdater(userFinder, mySqlUserRepository)
