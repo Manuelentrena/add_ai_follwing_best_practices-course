@@ -5,24 +5,26 @@ import { UserRegisteredDomainEventMother } from "../../domain/UserRegisteredDoma
 import { MockUserRepository } from "../../infrastructure/MockUserRepository";
 
 describe("UserRegistrar should", () => {
-	const repository = new MockUserRepository();
-	const eventBus = new MockEventBus();
-	const userRegistrar = new UserRegistrar(repository, eventBus);
+  const repository = new MockUserRepository();
+  const eventBus = new MockEventBus();
+  const userRegistrar = new UserRegistrar(repository, eventBus);
 
-	it("register a valid user", async () => {
-		const expectedUser = UserMother.create();
-		const expectedUserPrimitives = expectedUser.toPrimitives();
+  it("register a valid user", async () => {
+    const expectedUser = UserMother.create();
+    const expectedUserPrimitives = expectedUser.toPrimitives();
 
-		const expectedDomainEvent = UserRegisteredDomainEventMother.create(expectedUserPrimitives);
+    const expectedDomainEvent = UserRegisteredDomainEventMother.create(
+      expectedUserPrimitives
+    );
 
-		repository.shouldSave(expectedUser);
-		eventBus.shouldPublish([expectedDomainEvent]);
+    repository.shouldSave(expectedUser);
+    eventBus.shouldPublish([expectedDomainEvent]);
 
-		await userRegistrar.registrar(
-			expectedUserPrimitives.id,
-			expectedUserPrimitives.name,
-			expectedUserPrimitives.email,
-			expectedUserPrimitives.profilePicture,
-		);
-	});
+    await userRegistrar.registrar(
+      expectedUserPrimitives.id,
+      expectedUserPrimitives.name,
+      expectedUserPrimitives.email,
+      expectedUserPrimitives.profilePicture
+    );
+  });
 });
